@@ -1,0 +1,10 @@
+train: ./dataset/images/train  # relative path to train images
+val: ./dataset/images/val  # relative path to val images
+test: ./dataset/images/public_test  # relative path to public test images
+
+# Classes
+# Please don't change
+num_class: 3  # number of classes
+names: ['0', '1', '2']
+
+
