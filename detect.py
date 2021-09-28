@@ -1,9 +1,8 @@
 # YOLOv5 🚀 by Ultralytics, GPL-3.0 license
 """
-Run inference on images, videos, directories, streams, etc.
-
+Run inference on images
 Usage:
-    $ python path/to/detect.py --source path/to/img.jpg --weights yolov5s.pt --img 640
+    $ python path/to/detect.py --source path/to/img.jpg --weights <model_name>.pt
 """
 
 import argparse
@@ -181,7 +180,7 @@ def parse_opt():
     opt.project = 'results/detect'
     opt.view_img = False
     opt.visualize = False
-    opt.max_det = 500
+    opt.max_det = 1000
     opt.line_thickness = 2
     return opt
 
