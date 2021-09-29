@@ -26,7 +26,7 @@ from utils.torch_utils import select_device, time_sync
 
 @torch.no_grad()
 def run(weights,  # model.pt path(s)
-        source,  # file/dir/URL/glob, 0 for webcam
+        source,  # file/dir
         imgsz,  # inference size (pixels)
         conf_thres,  # confidence threshold
         iou_thres,  # NMS IOU threshold
@@ -36,14 +36,13 @@ def run(weights,  # model.pt path(s)
         save_txt,  # save results to *.txt
         save_conf,  # save confidences in --save-txt labels
         save_crop,  # save cropped prediction boxes
-        nosave,  # do not save images/videos
+        nosave,  # do not save images
         classes,  # filter by class: --class 0, or --class 0 2 3
         agnostic_nms,  # class-agnostic NMS
         augment,  # augmented inference
         visualize,  # visualize features
-        project,  # save results to project/name
-        name,  # save results to project/name
-        exist_ok, # existing project/name ok, do not increment
+        dir,  # save results to results/detect/
+        exist_ok, # existing results/detect/ ok, do not increment
         line_thickness,  # bounding box thickness (pixels)
         hide_labels,  # hide labels
         hide_conf,  # hide confidences
@@ -52,7 +51,7 @@ def run(weights,  # model.pt path(s)
     save_img = not nosave and not source.endswith('.txt')  # save inference images
 
     # Directories
-    save_dir = increment_path(Path(project) / name, exist_ok=exist_ok)  # increment run
+    save_dir = increment_path(Path(dir), exist_ok=exist_ok)  # increment run
     (save_dir / 'labels' if save_txt else save_dir).mkdir(parents=True, exist_ok=True)  # make dir
 
     # Initialize
@@ -157,17 +156,17 @@ def run(weights,  # model.pt path(s)
 
 def parse_opt():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--weights', nargs='+', type=str, default='pretrains/pretrain_5s.pt', help='model path(s)')
-    parser.add_argument('--source', type=str, default='dataset/images/public_test', help='folder contain image')
+    parser.add_argument('--weights', nargs='+', type=str, default='pretrains/pretrain_5s.pt', help='specify your weight path')
+    parser.add_argument('--source', type=str, default='dataset/images/val', help='folder contain image')
     parser.add_argument('--conf-thres', type=float, default=0.25, help='confidence threshold')
     parser.add_argument('--iou-thres', type=float, default=0.45, help='NMS IoU threshold')
     parser.add_argument('--device', default='', help='cuda device, i.e. 0 or 0,1,2,3 or cpu')
     parser.add_argument('--save-txt', action='store_true', help='save results to *.txt')
     parser.add_argument('--save-conf', action='store_true', help='save confidences in --save-txt labels')
     parser.add_argument('--save-crop', action='store_true', help='save cropped prediction boxes')
-    parser.add_argument('--name', default='exp', help='save results to project/name')
     parser.add_argument('--hide-labels', default=False, action='store_true', help='hide labels')
     parser.add_argument('--hide-conf', default=False, action='store_true', help='hide confidences')
+    parser.add_argument('--dir', default='./detect', help='save results to ')
     parser.add_argument('--half', action='store_true', help='use FP16 half-precision inference')
     opt = parser.parse_args()
 
@@ -177,7 +176,6 @@ def parse_opt():
     opt.exist_ok = False
     opt.imgsz = [640, 640]
     opt.nosave = False
-    opt.project = 'results/detect'
     opt.view_img = False
     opt.visualize = False
     opt.max_det = 1000
