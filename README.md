@@ -42,6 +42,12 @@ to evaluate participant's submission on private testing set.
 
 ## How to Run<a name="run"></a>
 ### QuickStart <a name="quickstart"></a>
+Click the image below 
+
+<a href="" target="_blank">
+  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
+
 ### Install requirements <a name="install"></a>
 
 * All  requirements are included in [requirements.txt](https://github.com/fsoft-ailab/Data-Competition/blob/main/requirements.txt)
@@ -56,12 +62,11 @@ cd Data-Competition
 pip3 install -r requirements.txt
 ```
 
-
-###Training <a name="training"></a>
+### Training <a name="training"></a>
 
 
 * Put your dataset into the Data-Competition folder.
-The structure of dataset folder is followed as below folder structure:
+The structure of dataset folder is followed as folder structure below:
 ```bash
 folder-name
 ├── images
@@ -91,37 +96,38 @@ folder-name
 
 * [train_cfg.yaml](config/train_cfg.yaml) where we set up the model during training. 
 You should not change such parameters because it will result in incorrect results. The training results are saved
-in the `results/train/<name_version>`.
+in the `results/train/<version_name>`.
 * Run the script below to train the model. Specify particular name to identify your experiment:
 ```angular2html
-python train.py --batch-size 64 --device 0 --name <name_version> 
+python3 train.py --batch-size 64 --device 0 --name <version_name> 
 ```
 `Note`: If you get out of memory error, you can decrease batch-size to multiple of 2 as 32, 16.
 
 ### Evaluation <a name="evaluation"></a>
-
-* You can evaluate the weights obtained after the training process. Please specify which dataset is evaluated at --task . Try the script below 
-
-
-* Results are saved at results/evaluation/< task>/<name_folder>.
-
+* Run script below to evaluate on particular dataset.
+* The `--task`'s value is only one of `train, val, or test`, respectively
+evaluating on the training set, validation set, or public testing set.
+* `Note`: Specify relative path to images folder which
+you evaluate in `config/data_cfg.yaml` [file](config/data_cfg.yaml).
 
 ```angular2html
-python val.py --weights <path_to_weight> --task train --name <name_folder>
-                                                  val
-                                                  test
+python3 val.py --weights <path_to_weight> --task test --name <version_name> --batch-size 64 --device 0
+                                                 val
+                                                 train
 ```
+* Results are saved at `results/evaluate/<task>/<version_name>`.
 
 ### Detection <a name="detection"></a>
 
-* You can use this script to make inferences on images
+* You can use this script to make inferences on particular folder
 
-* Results are saved at < dir>.
+* Results are saved at `<save_dir>`.
 ```angular2html
-python detect.py --weights <path_to_weight> --source <path_to_image/folder> --dir <save_dir>
+python3 detect.py --weights <path_to_weight> --source <path_to_folder> --dir <save_dir> --device 0
 ```
 
-* You can find more arguments at [detect.py](https://github.com/fsoft-ailab/Data-Competition/blob/main/train.py)
+* You can find more default arguments at [detect.py](https://github.com/fsoft-ailab/Data-Competition/blob/main/train.py)
 
 ## References
-Our source code is based on Ultralytics's implementation: https://github.com/ultralytics/yolov5
+* Our source code is based on Ultralytics's implementation: https://github.com/ultralytics/yolov5
+* ScaledYOLOV4: https://github.com/WongKinYiu/ScaledYOLOv4
