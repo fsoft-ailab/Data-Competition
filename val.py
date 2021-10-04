@@ -267,10 +267,10 @@ def parser():
     args = argparse.ArgumentParser(prog='val.py')
     args.add_argument('--data', type=str, default='config/data_cfg.yaml', help='dataset.yaml path')
     args.add_argument('--weights', type=str, help='specify your weight path', required=True)
-    args.add_argument('--batch-size', type=int, default=64, help='batch size')
-    args.add_argument('--task', default='val', help='train, val, test')
-    args.add_argument('--device', default='cpu', help='cuda device, i.e. 0 or 0,1,2,3 or cpu')
+    args.add_argument('--task', help='train, val, test', required=True)
     args.add_argument('--name', help='save to project/name', required=True)
+    args.add_argument('--batch-size', type=int, default=64, help='batch size')
+    args.add_argument('--device', default='cpu', help='cuda device, i.e. 0 or 0,1,2,3 or cpu')
     args = args.parse_args()
 
     args.img_size = 640
