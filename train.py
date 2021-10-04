@@ -1,7 +1,3 @@
-"""
-Source: YOLOv5 🚀 by Ultralytics https://github.com/ultralytics/yolov5
-"""
-import os
 import sys
 import time
 import math
@@ -335,7 +331,7 @@ def train(hyp,
                                        compute_loss=compute_loss)
 
         # Update best mAP
-        fi = fitness(np.array(results).reshape(1, -1))  # weighted combination of [P, R, mAP@.5, mAP@.5-.95]
+        fi = fitness(np.array(results).reshape(1, -1))  # weighted combination of [P, R, wAP@.5, mAP@.5, mAP@.5-.95]
         if fi > best_fitness:
             best_fitness = fi
         log_val = list(mean_losses) + list(results) + lr

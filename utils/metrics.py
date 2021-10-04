@@ -1,5 +1,6 @@
-# YOLOv5 🚀 by Ultralytics, GPL-3.0 license
 """
+Source: YOLOv5 🚀 by Ultralytics https://github.com/ultralytics/yolov5
+
 Model validation metrics
 """
 
@@ -14,8 +15,8 @@ import torch
 
 def fitness(x):
     # Model fitness as a weighted combination of metrics
-    w = [0.0, 0.0, 0.1, 0.9]  # weights for [P, R, mAP@0.5, mAP@0.5:0.95]
-    return (x[:, :4] * w).sum(1)
+    w = [0.0, 0.0, 1, 0.0, 0.0]  # weights for [P, R, wAP@0.5, mAP@0.5, mAP@0.5:0.95]
+    return (x[:, :5] * w).sum(1)
 
 
 def ap_per_class(tp, conf, pred_cls, target_cls, plot=False, save_dir='.', names=()):
@@ -293,6 +294,9 @@ def wh_iou(wh1, wh2):
 
 def plot_pr_curve(px, py, ap, save_dir='pr_curve.png', names=()):
     # Precision-recall curve
+
+    weight = [0.3, 0.2, 0.5]
+    wAP = (np.array(py).T * weight)
     fig, ax = plt.subplots(1, 1, figsize=(9, 6), tight_layout=True)
     py = np.stack(py, axis=1)
 
@@ -302,7 +306,8 @@ def plot_pr_curve(px, py, ap, save_dir='pr_curve.png', names=()):
     else:
         ax.plot(px, py, linewidth=1, color='grey')  # plot(recall, precision)
 
-    ax.plot(px, py.mean(1), linewidth=3, color='blue', label='all classes %.3f mAP@0.5' % ap[:, 0].mean())
+    ax.plot(px, py.mean(1), linewidth=2, color='blue', label='all classes %.3f mAP@0.5' % ap[:, 0].mean())
+    ax.plot(px, np.sum(wAP, axis=1), linewidth=3, color='red', label='{:.3f} wAP@0.5'.format(np.sum(ap[:, 0] * weight)))
     ax.set_xlabel('Recall')
     ax.set_ylabel('Precision')
     ax.set_xlim(0, 1)

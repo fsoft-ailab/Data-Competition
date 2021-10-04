@@ -1,5 +1,6 @@
-# YOLOv5 🚀 by Ultralytics, GPL-3.0 license
 """
+Source: YOLOv5 🚀 by Ultralytics https://github.com/ultralytics/yolov5
+
 PyTorch utils
 """
 

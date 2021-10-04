@@ -3,7 +3,7 @@
 weights: 'pretrains/pretrain_5s.pt' # path to pretrained model weight
 model_cfg: 'models/yolov5s.yaml' # path to model config
 data_cfg: 'config/coco128.yaml' # path to data config
-hyp: 'config/hyps/no_au.yaml' # path to hyper parameters config
+hyp: 'config/hyps/hyp_finetune.yaml' # path to hyper parameters config
 project: 'results/train'
 artifact_alias: 'latest'
 epochs: 100

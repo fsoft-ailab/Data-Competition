@@ -1,19 +1,9 @@
-# YOLOv5 🚀 by Ultralytics, GPL-3.0 license
-"""
-Run inference on images
-Usage:
-    $ python path/to/detect.py --source path/to/img.jpg --weights <model_name>.pt
-"""
-
 import argparse
 import sys
 from pathlib import Path
 
 import cv2
 import torch
-
-FILE = Path(__file__).resolve()
-sys.path.append(FILE.parents[0].as_posix())  # add yolov5/ to path
 
 from models.experimental import attempt_load
 from utils.datasets import LoadImages
@@ -24,14 +14,18 @@ from utils.plots import Annotator, colors
 from utils.torch_utils import select_device, time_sync
 
 
+FILE = Path(__file__).resolve()
+sys.path.append(FILE.parents[0].as_posix())
+
+
 @torch.no_grad()
 def run(weights,  # model.pt path(s)
         source,  # file/dir
-        imgsz,  # inference size (pixels)
-        conf_thres,  # confidence threshold
-        iou_thres,  # NMS IOU threshold
+        img_size,  # inference size (pixels)
+        conf_threshold,  # confidence threshold
+        iou_threshold,  # NMS IOU threshold
         max_det,  # maximum detections per image
-        device, # cuda device, i.e. 0 or 0,1,2,3 or cpu
+        device,  # cuda device, i.e. 0 or 0,1,2,3 or cpu
         view_img,  # show results
         save_txt,  # save results to *.txt
         save_conf,  # save confidences in --save-txt labels
@@ -42,7 +36,7 @@ def run(weights,  # model.pt path(s)
         augment,  # augmented inference
         visualize,  # visualize features
         dir,  # save results to results/detect/
-        exist_ok, # existing results/detect/ ok, do not increment
+        exist_ok,  # existing results/detect/ ok, do not increment
         line_thickness,  # bounding box thickness (pixels)
         hide_labels,  # hide labels
         hide_conf,  # hide confidences
@@ -70,15 +64,15 @@ def run(weights,  # model.pt path(s)
     if half:
         model.half()  # to FP16
 
-    imgsz = check_img_size(imgsz, s=stride)  # check image size
+    img_size = check_img_size(img_size, s=stride)  # check image size
     ascii = is_ascii(names)  # names are ascii (use PIL for UTF-8)
 
     # Dataloader
-    dataset = LoadImages(source, img_size=imgsz, stride=stride, auto=True)
+    dataset = LoadImages(source, img_size=img_size, stride=stride, auto=True)
 
     # Run inference
     if device.type != 'cpu':
-        model(torch.zeros(1, 3, *imgsz).to(device).type_as(next(model.parameters())))  # run once
+        model(torch.zeros(1, 3, *img_size).to(device).type_as(next(model.parameters())))  # run once
     dt, seen = [0.0, 0.0, 0.0], 0
     for path, img, im0s, _ in dataset:
         t1 = time_sync()
@@ -98,9 +92,8 @@ def run(weights,  # model.pt path(s)
         dt[1] += t3 - t2
 
         # NMS
-        pred = non_max_suppression(pred, conf_thres, iou_thres, classes, agnostic_nms, max_det=max_det)
+        pred = non_max_suppression(pred, conf_threshold, iou_threshold, classes, agnostic_nms, max_det=max_det)
         dt[2] += time_sync() - t3
-
 
         # Process predictions
         for i, det in enumerate(pred):  # per image
@@ -148,39 +141,40 @@ def run(weights,  # model.pt path(s)
 
     # Print results
     t = tuple(x / seen * 1E3 for x in dt)  # speeds per image
-    print(f'Speed: %.1fms pre-process, %.1fms inference, %.1fms NMS per image at shape {(1, 3, *imgsz)}' % t)
+    print(f'Speed: %.1fms pre-process, %.1fms inference, %.1fms NMS per image at shape {(1, 3, *img_size)}' % t)
     if save_txt or save_img:
         s = f"\n{len(list(save_dir.glob('labels/*.txt')))} labels saved to {save_dir / 'labels'}" if save_txt else ''
         print(f"Results saved to {save_dir}")
 
 
-def parse_opt():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--weights', nargs='+', type=str, default='pretrains/pretrain_5s.pt', help='specify your weight path')
-    parser.add_argument('--source', type=str, default='dataset/images/val', help='folder contain image')
-    parser.add_argument('--conf-thres', type=float, default=0.25, help='confidence threshold')
-    parser.add_argument('--iou-thres', type=float, default=0.45, help='NMS IoU threshold')
-    parser.add_argument('--device', default='', help='cuda device, i.e. 0 or 0,1,2,3 or cpu')
-    parser.add_argument('--save-txt', action='store_true', help='save results to *.txt')
-    parser.add_argument('--save-conf', action='store_true', help='save confidences in --save-txt labels')
-    parser.add_argument('--save-crop', action='store_true', help='save cropped prediction boxes')
-    parser.add_argument('--hide-labels', default=False, action='store_true', help='hide labels')
-    parser.add_argument('--hide-conf', default=False, action='store_true', help='hide confidences')
-    parser.add_argument('--dir', default='./detect', help='save results to ')
-    parser.add_argument('--half', action='store_true', help='use FP16 half-precision inference')
-    opt = parser.parse_args()
+def parser():
+    args = argparse.ArgumentParser()
+    args.add_argument('--weights', type=str, help='specify your weight path', required=True)
+    args.add_argument('--source', type=str, help='folder contain image', required=True)
+    args.add_argument('--dir',type=str, help='save results to dir', required=True)
+    args.add_argument('--conf-threshold', type=float, default=0.25, help='confidence threshold')
+    args.add_argument('--iou-threshold', type=float, default=0.45, help='NMS IoU threshold')
+    args.add_argument('--device', default='', help='cuda device, i.e. 0 or 0,1,2,3 or cpu')
+    args.add_argument('--save-txt', action='store_true', help='save results to *.txt')
+    args.add_argument('--save-conf', action='store_true', help='save confidences in --save-txt labels')
+    args.add_argument('--save-crop', action='store_true', help='save cropped prediction boxes')
+    args.add_argument('--hide-labels', default=False, action='store_true', help='hide labels')
+    args.add_argument('--hide-conf', default=False, action='store_true', help='hide confidences')
+    args.add_argument('--half', action='store_true', help='use FP16 half-precision inference')
+    args = args.parse_args()
 
-    opt.agnostic_nms = False
-    opt.augment = False
-    opt.classes = None
-    opt.exist_ok = False
-    opt.imgsz = [640, 640]
-    opt.nosave = False
-    opt.view_img = False
-    opt.visualize = False
-    opt.max_det = 1000
-    opt.line_thickness = 2
-    return opt
+    args.agnostic_nms = False
+    args.augment = False
+    args.classes = None
+    args.exist_ok = False
+    args.img_size = [640, 640]
+    args.nosave = False
+    args.view_img = False
+    args.visualize = False
+    args.max_det = 1000
+    args.line_thickness = 2
+
+    return args
 
 
 def main(opt):
@@ -190,4 +184,4 @@ def main(opt):
 
 
 if __name__ == "__main__":
-    main(parse_opt())
+    main(parser())

@@ -1,5 +1,5 @@
-# YOLOv5 🚀 by Ultralytics, GPL-3.0 license
 """
+Source: YOLOv5 🚀 by Ultralytics https://github.com/ultralytics/yolov5
 TensorFlow, Keras and TFLite versions of YOLOv5
 Authored by https://github.com/zldrobit in PR https://github.com/ultralytics/yolov5/pull/1127
 
