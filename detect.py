@@ -153,7 +153,7 @@ def parser():
     args.add_argument('--source', type=str, help='folder contain image', required=True)
     args.add_argument('--dir',type=str, help='save results to dir', required=True)
     args.add_argument('--conf-threshold', type=float, default=0.25, help='confidence threshold')
-    args.add_argument('--iou-threshold', type=float, default=0.45, help='NMS IoU threshold')
+    args.add_argument('--iou-threshold', type=float, default=0.6, help='NMS IoU threshold')
     args.add_argument('--device', default='', help='cuda device, i.e. 0 or 0,1,2,3 or cpu')
     args.add_argument('--save-txt', action='store_true', help='save results to *.txt')
     args.add_argument('--save-conf', action='store_true', help='save confidences in --save-txt labels')

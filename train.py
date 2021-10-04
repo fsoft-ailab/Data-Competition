@@ -384,7 +384,7 @@ def parser(known=False):
     args.add_argument('--cache', type=str, nargs='?', const='ram', help='--cache images in "ram" (default) or "disk"')
     args.add_argument('--device', default='', help='cuda device, i.e. 0 or 0,1,2,3 or cpu')
     args.add_argument('--workers', type=int, default=8, help='maximum number of dataloader workers')
-    args.add_argument('--version', type=str, help='define your version experience', required=True)
+    args.add_argument('--name', type=str, help='define your version experience', required=True)
     args = args.parse_known_args()[0] if known else args.parse_args()
 
     with open(Path('config') / 'train_cfg.yaml') as f:
@@ -413,7 +413,7 @@ def main(args, callbacks=Callbacks()):
     args.hyp = check_yaml(args.hyp)
     assert len(args.model_cfg) or len(args.weights), 'either --cfg or --weights must be specified'
 
-    args.save_dir = str(increment_path(Path(args.project) / args.version, exist_ok=args.exist_ok))
+    args.save_dir = str(increment_path(Path(args.project) / args.name, exist_ok=args.exist_ok))
 
     # DDP mode
     device = select_device(args.device, batch_size=args.batch_size)
