@@ -5,9 +5,9 @@
 4. [How to Run](#quickstart)
    - [Quickstart](#quickstart)
    - [Install](#install)
-   - [Train](#training)
-   - [Evaluate](#evaluation)
-   - [Detect](#detection)
+   - [Training](#training)
+   - [Evaluation](#evaluation)
+   - [Detection](#detection)
 
 
 <p align="center">
