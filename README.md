@@ -12,9 +12,23 @@
 
 <p align="center">
   <h1 align="center", id="introduction">DATA COMPETITION</h1></p>
-
+The COVID-19 pandemic, which is caused by the SARS-CoV-2 virus, is still continuing strong, infecting hundreds of millions of people and killing millions. Face masks reduce transmission by preventing aerosols and droplets from spreading too far into the atmosphere. As a result, there is a growing demand for automated systems that can detect whether people are not wearing masks or are wearing masks incorrectly. This competition was designed in order to solve the problem mentioned above. This competition is unlike any other that has come before it. With a fixed model, participants will receive model code and configuration code that organizers use to train models. The candidate's task is to use data processing and generation techniques to improve the model's performance, then submit the dataset to the organizing team for training and evaluation on the private test set. The winner is the team with the highest score on the private test set.
 
 ## Dataset<a name="dataset"></a>
+* A dataset of 1100 iamges will be sent to you. This is an object detection dataset consisting of employee images at the office. 
+The dataset has been assigned 3 labels by us which are no mask, mask, and incorrect mask.
+
+* The dataset has been divided into three parts for you: train, val, and public test. We have prepared a private test to be able to evaluate the candidate's model. 
+This private test will be made public after the contest ends. In the public test, you can get a basic idea of the private test. 
+
+* To improve the model's performance, you can re-label it and employ data augmentation to generate more images (up to 3000).
+
+The number of each label in each part is shown below:
+|                 |     Mask     |   No mask   |incorrect mask|
+|-----------------|:------------:|:-----------:|:------------:|
+|      Train      |      273     |     818     |      9       |
+|       Val       |      79      |     193     |      1       |
+|   Public_test   |      37      |     104     |      3       |
 
 ## Model & Metrics <a name="model"></a>
 * The challenge is defined as object detection challenge. In the competition,
