@@ -12,13 +12,16 @@
 
 <p align="center">
   <h1 align="center", id="introduction">DATA COMPETITION</h1></p>
+  
+![](https://drive.google.com/uc?export=view&id=1DEpMpgsX-MU3-de4Gqoa7Nk3VD12_Vwk)
+ 
 The COVID-19 pandemic, which is caused by the SARS-CoV-2 virus, is still continuing strong, infecting hundreds of millions of people and killing millions. Face masks reduce transmission by preventing aerosols and droplets from spreading too far into the atmosphere. As a result, there is a growing demand for automated systems that can detect whether people are not wearing masks or are wearing masks incorrectly. This competition was designed in order to solve the problem mentioned above. This competition is unlike any other that has come before it. With a fixed model, participants will receive model code and configuration code that organizers use to train models. The candidate's task is to use data processing and generation techniques to improve the model's performance, then submit the dataset to the organizing team for training and evaluation on the private test set. The winner is the team with the highest score on the private test set.
 
 ## Dataset<a name="dataset"></a>
-* A dataset of 1100 iamges will be sent to you. This is an object detection dataset consisting of employee images at the office. 
-The dataset has been assigned 3 labels by us which are no mask, mask, and incorrect mask.
+* A dataset of 1100 images will be sent to you. This is an object detection dataset consisting of employee images at the office. 
+The dataset has been assigned 3 labels by us which are no mask, mask, and incorrect mask, with the numbers 0,1,2 corresponding to each.
 
-* The dataset has been divided into three parts for you: train, val, and public test. We have prepared a private test to be able to evaluate the candidate's model. 
+* The dataset has been divided into three parts for you: train, valid, and public test. We have prepared a private test to be able to evaluate the candidate's model. 
 This private test will be made public after the contest ends. In the public test, you can get a basic idea of the private test. 
 
 * To improve the model's performance, you can re-label it and employ data augmentation to generate more images (up to 3000).
@@ -58,7 +61,7 @@ to evaluate participant's submission on private testing set.
 ### QuickStart <a name="quickstart"></a>
 Click the image below 
 
-<a href="" target="_blank">
+<a href="https://colab.research.google.com/drive/18VZqW9X2bI2Os28BhIyE4YqkFC9FKRrf?usp=sharing" target="_blank">
   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
@@ -109,7 +112,7 @@ folder-name
 * Change relative paths to train and val images folder in `config/data_cfg.yaml` [file](config/data_cfg.yaml)
 
 * [train_cfg.yaml](config/train_cfg.yaml) where we set up the model during training. 
-You should not change such parameters because it will result in incorrect results. The training results are saved
+You should not change such hyperparameters because it will result in incorrect results. The training results are saved
 in the `results/train/<version_name>`.
 * Run the script below to train the model. Specify particular name to identify your experiment:
 ```angular2html
