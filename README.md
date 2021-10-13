@@ -42,16 +42,16 @@ and **do not use any augmentation tips** in the source code.
 Therefore, each participant need to build the best possible dataset by relabeling
 incorrect labels, splitting train/val, augmentation tips, adding new dataset, etc.
 
-* In training process, Early Stopping method with patience setten to 100 
+* In training process, Early Stopping method with patience setten to 100 iterations
 is used to keep track of validation set's wAP@0.5. Detail about wAP@0.5 metric:
 <p align="center">
 wAP@0.5 = weighted_AP@0.5 = 0.2 * AP50_w + 0.3 * AP50_nw + 0.5 * AP50_wi
-
-Where, \
-AP50_w: \
-AP50_nw:  
-AP50_wi:
 </p>
+
+   Where, </br>
+   AP50_w: AP50 on valid mask boxes </br>
+   AP50_nw: AP50 on non-mask boxes </br>
+   AP50_wiAP50 on invalid mask boxes </br>
 
 * The wAP@0.5 metric is also used as the main metric
 to evaluate participant's submission on private testing set.
