@@ -226,7 +226,7 @@ def train(hyp,
 
     # Start training
     t0 = time.time()
-    num_warmup_inters = max(round(hyp['warmup_epochs'] * num_batches), 1000)
+    num_warmup_inters = min(round(hyp['warmup_epochs'] * num_batches), 1000)
     last_opt_step = -1
     maps = np.zeros(num_class)
     results = (0, 0, 0, 0, 0, 0, 0)  # P, R, mAP@.5, mAP@.5-.95, val_loss(box, obj, cls)
