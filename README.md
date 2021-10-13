@@ -51,7 +51,7 @@ wAP@0.5 = weighted_AP@0.5 = 0.2 * AP50_w + 0.3 * AP50_nw + 0.5 * AP50_wi
    Where, </br>
    AP50_w: AP50 on valid mask boxes </br>
    AP50_nw: AP50 on non-mask boxes </br>
-   AP50_wiAP50 on invalid mask boxes </br>
+   AP50_wi: AP50 on invalid mask boxes </br>
 
 * The wAP@0.5 metric is also used as the main metric
 to evaluate participant's submission on private testing set.
