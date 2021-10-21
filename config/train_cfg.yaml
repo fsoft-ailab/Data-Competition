@@ -1,6 +1,6 @@
 # Please don't change any parameters
 
-weights: 'pretrains/pretrain_5s.pt' # path to pretrained model weight
+weights: 'pretrains/pretrain.pt' # path to pretrained model weight
 model_cfg: 'models/yolov5s.yaml' # path to model config
 data_cfg: 'config/data_cfg.yaml' # path to data config
 hyp: 'config/hyps/hyp_finetune.yaml' # path to hyper parameters config
