@@ -22,7 +22,7 @@ The COVID-19 pandemic, which is caused by the SARS-CoV-2 virus, is still continu
 The dataset has been assigned 3 labels by us which are no mask, mask, and incorrect mask, with the numbers 0,1,2 corresponding to each.
 
 * The dataset has been divided into three parts for you: train, valid, and public test. We have prepared a private test to be able to evaluate the candidate's model. 
-This private test will be made public after the contest ends. In the public test, you can get a basic idea of the private test. 
+This private test will be made public after the contest ends. In the public test, you can get a basic idea of the private test. Get dataset at [here](https://drive.google.com/file/d/1a9_SpkywxetwRtfbg8nuhqfKkV4uSNe5/view?usp=sharing)
 
 * To improve the model's performance, you can re-label it and employ data augmentation to generate more images (up to 3000).
 
