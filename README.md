@@ -29,7 +29,7 @@ This private test will be made public after the contest ends. In the public test
 The number of each label in each part is shown below:
 |                 |    No mask   |     Mask    |incorrect mask| 
 |-----------------|:------------:|:-----------:|:------------:|
-|      Train      |      309     |     882     |      51      |
+|      Train      |      308     |     882     |      51      |
 |       Val       |      97      |     190     |      9       |
 |   Public_test   |      42      |     94      |      13      |
 
