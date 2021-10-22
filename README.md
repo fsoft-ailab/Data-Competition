@@ -27,11 +27,11 @@ This private test will be made public after the contest ends. In the public test
 * To improve the model's performance, you can re-label it and employ data augmentation to generate more images (up to 3000).
 
 The number of each label in each part is shown below:
-|                 |     Mask     |   No mask   |incorrect mask|
+|                 |    No mask   |     Mask    |incorrect mask| 
 |-----------------|:------------:|:-----------:|:------------:|
-|      Train      |      273     |     818     |      9       |
-|       Val       |      79      |     193     |      1       |
-|   Public_test   |      37      |     104     |      3       |
+|      Train      |      309     |     882     |      51      |
+|       Val       |      97      |     190     |      9       |
+|   Public_test   |      42      |     94      |      13      |
 
 ## Model & Metrics <a name="model"></a>
 * The challenge is defined as object detection challenge. In the competition,
