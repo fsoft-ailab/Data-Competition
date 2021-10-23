@@ -45,6 +45,9 @@ def torch_distributed_zero_first(local_rank: int):
 def init_torch_seeds(seed=0):
     # Speed-reproducibility tradeoff https://pytorch.org/docs/stable/notes/randomness.html
     torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+
     if seed == 0:  # slower, more reproducible
         cudnn.benchmark, cudnn.deterministic = False, True
     else:  # faster, less reproducible
