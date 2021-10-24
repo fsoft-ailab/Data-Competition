@@ -180,7 +180,7 @@ def train(hyp,
 
     # Train Loader
     train_loader, dataset = create_dataloader(train_path, img_size, batch_size, grid_size,
-                                              hyp=hyp, augment=True, cache=args.cache, rect=args.rect,
+                                              hyp=hyp, augment=False, cache=args.cache, rect=args.rect,
                                               workers=workers, image_weights=args.image_weights, quad=args.quad,
                                               prefix=colorstr('Train: '))
 

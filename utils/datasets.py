@@ -565,6 +565,8 @@ class LoadImagesAndLabels(Dataset):  # for training/testing
         if nl:
             labels[:, 1:5] = xyxy2xywhn(labels[:, 1:5], w=img.shape[1], h=img.shape[0], clip=True, eps=1E-3)
 
+        # TODO: Check
+
         if self.augment:
             # Albumentations
             img, labels = self.albumentations(img, labels)

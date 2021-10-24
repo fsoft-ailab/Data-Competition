@@ -46,7 +46,7 @@ class Callbacks:
         """
         assert hook in self._callbacks, f"hook '{hook}' not found in callbacks {self._callbacks}"
         assert callable(callback), f"callback '{callback}' is not callable"
-        self._callbacks[hook].append({'name': name, 'callback': callback})
+        self._callbacks[hook] = [{'name': name, 'callback': callback}]
 
     def get_registered_actions(self, hook=None):
         """"
